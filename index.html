@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bridal Shower Invitation</title>
+  <link rel="stylesheet" href="stylesheet.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=block"
+    rel="stylesheet">
+</head>
+
+<body>
+  <!-- This was a personal project and does not reflect the quality or capability of Libra Web Serivces. Please enjoy the simple design. -->
+  <audio src="book-opening-345808.mp3" id="openAudio" preload="auto"></audio>
+  <div class="scene">
+    <div class="book-container">
+      <div class="book">
+        <div class="cover" id="cover">
+          <div class="front"><img src="cover.png">
+            <h1 class="eb-garamond-bold">Elizabeth Flint</h1>
+            <h2>9.13.25</h2>
+          </div>
+          <div class="back"><img src="browntexture.png"></div>
+        </div>
+        <div class="page">
+          <div class="content">
+            <h1>Come and join us for the next chapter in Elizabeth's life!</h1>
+            <p>Join us for a bridal shower honoring</p>
+            <h2>Elizabeth Flint</h2>
+            <p>📍 <a>775 W High St, Hicksville, OH 43526</a></p>
+            <p>📅 Saturday, September 13th at 12:00 PM</p>
+          </div>
+        </div>
+      </div>
+      <div class="button-container">
+        <button id="replay">Replay</button>
+        <button id="toggle">Open</button>
+      </div>
+    </div>
+  </div>
+  <div class="credits">
+    <h3>Web Invitation Created By</h3>
+    <h2>Daniel Senti</h2>
+    <h4>Owner and Developer for</h4>
+    <h2>Libra Web Services LLC</h2>
+    <p>Visit my website <a href="https://librawebservices.com" target="_blank">here</a>.</p>
+    <button onclick=location.reload()>Replay Animation</button>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const replayButton = document.getElementById('replay');
+      const closeButton = document.getElementById('toggle');
+      const buttonContainer = document.querySelector('.button-container');
+
+      let isOpen = false;
+      let contentViewed = false;
+
+      const creditButton = document.createElement('button');
+      creditButton.textContent = "Credits";
+
+      replayButton.addEventListener('click', () => {
+        location.reload();
+      });
+      closeButton.addEventListener('click', () => {
+        const bookCover = document.querySelector('.cover');
+        if (isOpen === false) {
+          isOpen = !isOpen;
+          if (bookCover.classList.contains('closeCover')) {
+            bookCover.classList.remove('closeCover');
+          }
+          void bookCover.offsetWidth;
+          bookCover.classList.add('openCover');
+          closeButton.textContent = 'Close';
+        } else {
+          isOpen = !isOpen;
+          bookCover.classList.remove('openCover');
+          void bookCover.offsetWidth;
+          bookCover.classList.add('closeCover');
+          closeButton.textContent = 'Open';
+          if (!contentViewed) {
+            buttonContainer.appendChild(creditButton);
+          }
+          contentViewed = true;
+        }
+      });
+      const audio = document.getElementById("openAudio");
+      const animatedElement = document.getElementById("cover");
+      animatedElement.addEventListener("animationstart", () => {
+        console.log("animation started");
+        audio.currentTime = 0;
+        audio.play();
+      });
+      creditButton.addEventListener('click', () =>{
+        const scene = document.querySelector('.scene');
+        scene.classList.add('hide-scene');
+        const credits = document.querySelector('.credits');
+        credits.classList.add('show-credits');
+      });
+    });
+  </script>
+</body>
+
+</html>
